@@ -316,37 +316,38 @@ test-yarnpnp: platform-wasm
 version-go:
 	node scripts/esbuild.js --update-version-go
 
-platform-all: go-compiler
-	@$(MAKE) --no-print-directory -j4 \
-		platform-aix-ppc64 \
+#		platform-aix-ppc64 \
 		platform-android-arm \
 		platform-android-arm64 \
 		platform-android-x64 \
-		platform-darwin-arm64 \
-		platform-darwin-x64 \
-		platform-deno \
-		platform-freebsd-arm64 \
-		platform-freebsd-x64 \
-		platform-linux-arm \
-		platform-linux-arm64 \
 		platform-linux-ia32 \
 		platform-linux-loong64 \
 		platform-linux-mips64el \
-		platform-linux-ppc64 \
 		platform-linux-riscv64 \
 		platform-linux-s390x \
-		platform-linux-x64 \
+		platform-freebsd-arm64 \
+		platform-freebsd-x64 \
+		platform-win32-ia32 \
 		platform-netbsd-arm64 \
 		platform-netbsd-x64 \
-		platform-neutral \
 		platform-openbsd-arm64 \
 		platform-openbsd-x64 \
 		platform-openharmony-arm64 \
 		platform-sunos-x64 \
+
+platform-all: go-compiler
+	@$(MAKE) --no-print-directory -j4 \
+		platform-deno \
+		platform-darwin-arm64 \
+		platform-darwin-x64 \
+		platform-linux-arm \
+		platform-linux-arm64 \
+		platform-linux-ppc64 \
+		platform-linux-x64 \
+		platform-neutral \
 		platform-wasi-preview1 \
 		platform-wasm \
 		platform-win32-arm64 \
-		platform-win32-ia32 \
 		platform-win32-x64
 
 platform-win32-x64: version-go go-compiler

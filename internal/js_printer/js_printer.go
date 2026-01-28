@@ -2001,12 +2001,15 @@ const (
 	isPropertyAccessTarget
 	parentWasUnaryOrBinaryOrIfTest
 	parentIsCallExpr
+	exprLeftFlag
 )
 
 func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFlags) {
 	insideCallExpr := flags&parentIsCallExpr != 0
+	insideLeft := flags&exprLeftFlag != 0
 
 	flags &= ^parentIsCallExpr
+	flags &= ^exprLeftFlag
 
 	// If syntax compression is enabled, do a pre-pass over unary and binary
 	// operators to inline bitwise operations of cross-module inlined constants.
@@ -2887,7 +2890,7 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 		n := len(p.js)
 		wrap := p.stmtStart == n || p.arrowExprStart == n
 
-		doDebugAlloc := p.options.DebugAlloc
+		doDebugAlloc := p.options.DebugAlloc && !insideLeft
 
 		if doDebugAlloc {
 			wrap = true
@@ -3356,7 +3359,7 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 
 			// Stop iterating if iteration doesn't apply to the left node
 			if !ok {
-				p.printExpr(left, v.leftLevel, v.leftFlags)
+				p.printExpr(left, v.leftLevel, v.leftFlags|exprLeftFlag)
 				v.visitRightAndFinish(p)
 				break
 			}
