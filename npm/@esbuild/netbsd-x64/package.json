@@ -1,5 +1,5 @@
 {
-  "name": "@esbuild/netbsd-x64",
+  "name": "@circuitly/esbuild-netbsd-x64",
   "version": "0.27.2",
   "description": "The NetBSD AMD64 binary for esbuild, a JavaScript bundler.",
   "repository": {

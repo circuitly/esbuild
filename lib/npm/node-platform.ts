@@ -16,42 +16,42 @@ export var ESBUILD_BINARY_PATH: string | undefined = process.env.ESBUILD_BINARY_
 // forever. Attempt to fix this by ignoring the "/usr/bin/esbuild" value.
 export const isValidBinaryPath = (x: string | undefined): x is string => !!x && x !== '/usr/bin/esbuild'
 
-const packageDarwin_arm64 = '@esbuild/darwin-arm64'
-const packageDarwin_x64 = '@esbuild/darwin-x64'
+const packageDarwin_arm64 = '@circuitly/esbuild-darwin-arm64'
+const packageDarwin_x64 = '@circuitly/esbuild-darwin-x64'
 
 export const knownWindowsPackages: Record<string, string> = {
-  'win32 arm64 LE': '@esbuild/win32-arm64',
-  'win32 ia32 LE': '@esbuild/win32-ia32',
-  'win32 x64 LE': '@esbuild/win32-x64',
+  'win32 arm64 LE': '@circuitly/esbuild-win32-arm64',
+  'win32 ia32 LE': '@circuitly/esbuild-win32-ia32',
+  'win32 x64 LE': '@circuitly/esbuild-win32-x64',
 }
 
 export const knownUnixlikePackages: Record<string, string> = {
-  'aix ppc64 BE': '@esbuild/aix-ppc64',
-  'android arm64 LE': '@esbuild/android-arm64',
-  'darwin arm64 LE': '@esbuild/darwin-arm64',
-  'darwin x64 LE': '@esbuild/darwin-x64',
-  'freebsd arm64 LE': '@esbuild/freebsd-arm64',
-  'freebsd x64 LE': '@esbuild/freebsd-x64',
-  'linux arm LE': '@esbuild/linux-arm',
-  'linux arm64 LE': '@esbuild/linux-arm64',
-  'linux ia32 LE': '@esbuild/linux-ia32',
-  'linux mips64el LE': '@esbuild/linux-mips64el',
-  'linux ppc64 LE': '@esbuild/linux-ppc64',
-  'linux riscv64 LE': '@esbuild/linux-riscv64',
-  'linux s390x BE': '@esbuild/linux-s390x',
-  'linux x64 LE': '@esbuild/linux-x64',
-  'linux loong64 LE': '@esbuild/linux-loong64',
-  'netbsd arm64 LE': '@esbuild/netbsd-arm64',
-  'netbsd x64 LE': '@esbuild/netbsd-x64',
-  'openbsd arm64 LE': '@esbuild/openbsd-arm64',
-  'openbsd x64 LE': '@esbuild/openbsd-x64',
-  'sunos x64 LE': '@esbuild/sunos-x64',
+  'aix ppc64 BE': '@circuitly/esbuild-aix-ppc64',
+  'android arm64 LE': '@circuitly/esbuild-android-arm64',
+  'darwin arm64 LE': '@circuitly/esbuild-darwin-arm64',
+  'darwin x64 LE': '@circuitly/esbuild-darwin-x64',
+  'freebsd arm64 LE': '@circuitly/esbuild-freebsd-arm64',
+  'freebsd x64 LE': '@circuitly/esbuild-freebsd-x64',
+  'linux arm LE': '@circuitly/esbuild-linux-arm',
+  'linux arm64 LE': '@circuitly/esbuild-linux-arm64',
+  'linux ia32 LE': '@circuitly/esbuild-linux-ia32',
+  'linux mips64el LE': '@circuitly/esbuild-linux-mips64el',
+  'linux ppc64 LE': '@circuitly/esbuild-linux-ppc64',
+  'linux riscv64 LE': '@circuitly/esbuild-linux-riscv64',
+  'linux s390x BE': '@circuitly/esbuild-linux-s390x',
+  'linux x64 LE': '@circuitly/esbuild-linux-x64',
+  'linux loong64 LE': '@circuitly/esbuild-linux-loong64',
+  'netbsd arm64 LE': '@circuitly/esbuild-netbsd-arm64',
+  'netbsd x64 LE': '@circuitly/esbuild-netbsd-x64',
+  'openbsd arm64 LE': '@circuitly/esbuild-openbsd-arm64',
+  'openbsd x64 LE': '@circuitly/esbuild-openbsd-x64',
+  'sunos x64 LE': '@circuitly/esbuild-sunos-x64',
 }
 
 export const knownWebAssemblyFallbackPackages: Record<string, string> = {
-  'android arm LE': '@esbuild/android-arm',
-  'android x64 LE': '@esbuild/android-x64',
-  'openharmony arm64 LE': '@esbuild/openharmony-arm64',
+  'android arm LE': '@circuitly/esbuild-android-arm',
+  'android x64 LE': '@circuitly/esbuild-android-x64',
+  'openharmony arm64 LE': '@circuitly/esbuild-openharmony-arm64',
 }
 
 export function pkgAndSubpathForCurrentPlatform(): { pkg: string, subpath: string, isWASM: boolean } {

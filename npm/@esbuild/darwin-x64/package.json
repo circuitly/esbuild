@@ -1,5 +1,5 @@
 {
-  "name": "@esbuild/darwin-x64",
+  "name": "@circuitly/esbuild-darwin-x64",
   "version": "0.27.2",
   "description": "The macOS 64-bit binary for esbuild, a JavaScript bundler.",
   "repository": {

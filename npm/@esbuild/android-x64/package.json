@@ -1,5 +1,5 @@
 {
-  "name": "@esbuild/android-x64",
+  "name": "@circuitly/esbuild-android-x64",
   "version": "0.27.2",
   "description": "A WebAssembly shim for esbuild on Android x64.",
   "repository": {
