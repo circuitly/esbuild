@@ -257,6 +257,7 @@ function flagsForBuildOptions(
 
   let sourcemap = getFlag(options, keys, 'sourcemap', mustBeStringOrBoolean)
   let bundle = getFlag(options, keys, 'bundle', mustBeBoolean)
+  let debugAlloc = getFlag(options, keys, 'debugAlloc', mustBeBoolean)
   let splitting = getFlag(options, keys, 'splitting', mustBeBoolean)
   let preserveSymlinks = getFlag(options, keys, 'preserveSymlinks', mustBeBoolean)
   let metafile = getFlag(options, keys, 'metafile', mustBeBoolean)
@@ -291,6 +292,7 @@ function flagsForBuildOptions(
 
   if (sourcemap) flags.push(`--sourcemap${sourcemap === true ? '' : `=${sourcemap}`}`)
   if (bundle) flags.push('--bundle')
+  if (debugAlloc) flags.push('--debug-alloc')
   if (allowOverwrite) flags.push('--allow-overwrite')
   if (splitting) flags.push('--splitting')
   if (preserveSymlinks) flags.push('--preserve-symlinks')

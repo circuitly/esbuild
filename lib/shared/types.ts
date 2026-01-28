@@ -113,6 +113,7 @@ export interface TsconfigRaw {
 export interface BuildOptions extends CommonOptions {
   /** Documentation: https://esbuild.github.io/api/#bundle */
   bundle?: boolean
+  debugAlloc?: boolean
   /** Documentation: https://esbuild.github.io/api/#splitting */
   splitting?: boolean
   /** Documentation: https://esbuild.github.io/api/#preserve-symlinks */
