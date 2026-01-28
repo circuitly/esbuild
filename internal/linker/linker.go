@@ -4965,6 +4965,7 @@ func (c *linkerContext) generateCodeForFileInChunkJS(
 		RequireOrImportMetaForSource: c.requireOrImportMetaForSource,
 		MangledProps:                 c.mangledProps,
 		NeedsMetafile:                c.options.NeedsMetafile,
+		DebugAlloc:                   c.options.DebugAlloc,
 	}
 	tree := repr.AST
 	tree.Directives = nil // This is handled elsewhere
@@ -5300,6 +5301,7 @@ func (c *linkerContext) generateEntryPointTailJS(
 		UnsupportedFeatures:          c.options.UnsupportedJSFeatures,
 		RequireOrImportMetaForSource: c.requireOrImportMetaForSource,
 		MangledProps:                 c.mangledProps,
+		DebugAlloc:                   c.options.DebugAlloc,
 	}
 	result.PrintResult = js_printer.Print(tree, c.graph.Symbols, r, printOptions)
 	return
@@ -5627,6 +5629,7 @@ func (c *linkerContext) generateChunkJS(chunkIndex int, chunkWaitGroup *sync.Wai
 			MinifySyntax:      c.options.MinifySyntax,
 			LineLimit:         c.options.LineLimit,
 			NeedsMetafile:     c.options.NeedsMetafile,
+			DebugAlloc:        c.options.DebugAlloc,
 		}
 		crossChunkImportRecords := make([]ast.ImportRecord, len(chunk.crossChunkImports))
 		for i, chunkImport := range chunk.crossChunkImports {

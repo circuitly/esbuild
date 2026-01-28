@@ -508,6 +508,7 @@ type Options struct {
 	NeedsMetafile          bool
 	SourceMap              SourceMap
 	ExcludeSourcesContent  bool
+	DebugAlloc             bool
 }
 
 type TSImportsNotUsedAsValues uint8
@@ -845,6 +846,7 @@ type OnLoadResult struct {
 
 	Loader Loader
 }
+
 
 func PrettyPrintTargetEnvironment(originalTargetEnv string, unsupportedJSFeatureOverridesMask compat.JSFeature) (where string) {
 	where = "the configured target environment"

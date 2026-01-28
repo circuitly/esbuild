@@ -2000,9 +2000,13 @@ const (
 	isCallTargetOrTemplateTag
 	isPropertyAccessTarget
 	parentWasUnaryOrBinaryOrIfTest
+	parentIsCallExpr
 )
 
 func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFlags) {
+	insideCallExpr := flags&parentIsCallExpr != 0
+	flags ^= parentIsCallExpr
+
 	// If syntax compression is enabled, do a pre-pass over unary and binary
 	// operators to inline bitwise operations of cross-module inlined constants.
 	// This makes the output a little tighter if people construct bit masks in
@@ -2240,6 +2244,12 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 			wrap = true
 		}
 
+		if p.options.DebugAlloc {
+			// comma expression
+			p.print("(globalThis?.$__onAlloc(0), ")
+			wrap = true
+		}
+
 		if wrap {
 			p.print("(")
 		}
@@ -2297,6 +2307,9 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 		}
 
 		if wrap {
+			p.print(")")
+		}
+		if p.options.DebugAlloc {
 			p.print(")")
 		}
 
@@ -2432,7 +2445,7 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 					p.printSpace()
 				}
 			}
-			p.printExpr(arg, js_ast.LComma, 0)
+			p.printExpr(arg, js_ast.LComma, parentIsCallExpr)
 		}
 		if isMultiLine {
 			p.printNewline()
@@ -2813,6 +2826,11 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 	case *js_ast.EArray:
 		isMultiLine := (len(e.Items) > 0 && !e.IsSingleLine) || p.willPrintExprCommentsForAnyOf(e.Items) || p.willPrintExprCommentsAtLoc(e.CloseBracketLoc)
 		p.addSourceMapping(expr.Loc)
+		if p.options.DebugAlloc {
+			// build a comma expression
+			p.print("(globalThis?.$__onAlloc(1), ")
+		}
+
 		p.print("[")
 		if len(e.Items) > 0 || isMultiLine {
 			if isMultiLine {
@@ -2851,6 +2869,9 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 			p.addSourceMapping(e.CloseBracketLoc)
 		}
 		p.print("]")
+		if p.options.DebugAlloc {
+			p.print(")")
+		}
 
 	case *js_ast.EObject:
 		isMultiLine := (len(e.Properties) > 0 && !e.IsSingleLine) || p.willPrintExprCommentsAtLoc(e.CloseBraceLoc)
@@ -2864,9 +2885,21 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 		}
 		n := len(p.js)
 		wrap := p.stmtStart == n || p.arrowExprStart == n
+
+		if p.options.DebugAlloc {
+			wrap = true
+			p.print("(globalThis?.$__onAlloc(")
+			if insideCallExpr {
+				p.print("3), ")
+			} else {
+				p.print("2), ")
+			}
+		}
+
 		if wrap {
 			p.print("(")
 		}
+
 		p.addSourceMapping(expr.Loc)
 		p.print("{")
 		if len(e.Properties) > 0 || isMultiLine {
@@ -2903,6 +2936,9 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 		}
 		p.print("}")
 		if wrap {
+			p.print(")")
+		}
+		if p.options.DebugAlloc {
 			p.print(")")
 		}
 
@@ -4942,6 +4978,7 @@ type Options struct {
 	SourceMap           config.SourceMap
 	AddSourceMappings   bool
 	NeedsMetafile       bool
+	DebugAlloc          bool
 }
 
 type RequireOrImportMeta struct {

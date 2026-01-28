@@ -93,6 +93,12 @@ func parseOptionsImpl(
 	// Parse the arguments now that we know what we're parsing
 	for _, arg := range osArgs {
 		switch {
+		case isBoolFlag(arg, "--debug-alloc") && buildOpts != nil:
+			if value, err := parseBoolFlag(arg, true); err != nil {
+				return parseOptionsExtras{}, err
+			} else {
+				buildOpts.DebugAlloc = value
+			}
 		case isBoolFlag(arg, "--bundle") && buildOpts != nil:
 			if value, err := parseBoolFlag(arg, true); err != nil {
 				return parseOptionsExtras{}, err

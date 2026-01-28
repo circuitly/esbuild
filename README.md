@@ -1,3 +1,13 @@
+```typescript
+enum AllocType {
+  NEW = 0,
+  ARRAY_LITERAL = 1,
+  OBJECT_LITERAL = 2,
+  OBJECT_LITEARL_ARG = 3
+}
+function $__onAlloc(type: AllocType);
+```
+
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./images/wordmark-dark.svg">

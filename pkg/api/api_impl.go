@@ -1314,6 +1314,7 @@ func validateBuildOptions(
 		CSSBanner:             bannerCSS,
 		CSSFooter:             footerCSS,
 		PreserveSymlinks:      buildOpts.PreserveSymlinks,
+		DebugAlloc:            buildOpts.DebugAlloc,
 	}
 	validateKeepNames(log, &options)
 	if buildOpts.Conditions != nil {
