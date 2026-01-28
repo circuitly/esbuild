@@ -2001,15 +2001,12 @@ const (
 	isPropertyAccessTarget
 	parentWasUnaryOrBinaryOrIfTest
 	parentIsCallExpr
-	exprInsideDecl
 )
 
 func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFlags) {
 	insideCallExpr := flags&parentIsCallExpr != 0
-	insideDecl := flags&exprInsideDecl != 0
 
 	flags &= ^parentIsCallExpr
-	flags &= ^exprInsideDecl
 
 	// If syntax compression is enabled, do a pre-pass over unary and binary
 	// operators to inline bitwise operations of cross-module inlined constants.
@@ -2890,7 +2887,7 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 		n := len(p.js)
 		wrap := p.stmtStart == n || p.arrowExprStart == n
 
-		doDebugAlloc := p.options.DebugAlloc && !insideDecl
+		doDebugAlloc := p.options.DebugAlloc
 
 		if doDebugAlloc {
 			wrap = true
@@ -3790,7 +3787,7 @@ func (p *printer) printDecls(keyword string, decls []js_ast.Decl, flags printExp
 			p.printSpace()
 			p.print("=")
 			p.printSpace()
-			p.printExprWithoutLeadingNewline(decl.ValueOrNil, js_ast.LComma, flags|exprInsideDecl)
+			p.printExprWithoutLeadingNewline(decl.ValueOrNil, js_ast.LComma, flags)
 		}
 	}
 }
