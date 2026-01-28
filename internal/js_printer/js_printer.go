@@ -2830,7 +2830,9 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 	case *js_ast.EArray:
 		isMultiLine := (len(e.Items) > 0 && !e.IsSingleLine) || p.willPrintExprCommentsForAnyOf(e.Items) || p.willPrintExprCommentsAtLoc(e.CloseBracketLoc)
 		p.addSourceMapping(expr.Loc)
-		if p.options.DebugAlloc {
+
+		doDebugAlloc := p.options.DebugAlloc && !insideLeft
+		if doDebugAlloc {
 			// build a comma expression
 			p.print("(globalThis?.$__onAlloc(1), ")
 		}
@@ -2873,7 +2875,7 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 			p.addSourceMapping(e.CloseBracketLoc)
 		}
 		p.print("]")
-		if p.options.DebugAlloc {
+		if doDebugAlloc {
 			p.print(")")
 		}
 

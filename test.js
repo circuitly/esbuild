@@ -18,5 +18,9 @@ const d = bleh({ a: 1, b, c: {bleh} })
 
 var stat;
 ({ stat } = fs)
-export const f = stat
+var pp, tt
+[pp, tt] = []
+export const f = [stat, pp, tt]
+
+
 
