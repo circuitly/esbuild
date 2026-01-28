@@ -490,91 +490,91 @@ publish-all: check-go-version
 	@$(MAKE) --no-print-directory publish-wasm
 
 publish-win32-x64: platform-win32-x64
-	cd npm/@esbuild/win32-x64 && npm publish
+	cd npm/@esbuild/win32-x64 && npm publish --access public
 
 publish-win32-ia32: platform-win32-ia32
-	cd npm/@esbuild/win32-ia32 && npm publish
+	cd npm/@esbuild/win32-ia32 && npm publish --access public
 
 publish-win32-arm64: platform-win32-arm64
-	cd npm/@esbuild/win32-arm64 && npm publish
+	cd npm/@esbuild/win32-arm64 && npm publish --access public
 
 publish-wasi-preview1: platform-wasi-preview1
-	cd npm/@esbuild/wasi-preview1 && npm publish
+	cd npm/@esbuild/wasi-preview1 && npm publish --access public
 
 publish-aix-ppc64: platform-aix-ppc64
-	cd npm/@esbuild/aix-ppc64 && npm publish
+	cd npm/@esbuild/aix-ppc64 && npm publish --access public
 
 publish-android-x64: platform-android-x64
-	cd npm/@esbuild/android-x64 && npm publish
+	cd npm/@esbuild/android-x64 && npm publish --access public
 
 publish-android-arm: platform-android-arm
-	cd npm/@esbuild/android-arm && npm publish
+	cd npm/@esbuild/android-arm && npm publish --access public
 
 publish-android-arm64: platform-android-arm64
-	cd npm/@esbuild/android-arm64 && npm publish
+	cd npm/@esbuild/android-arm64 && npm publish --access public
 
 publish-darwin-x64: platform-darwin-x64
-	cd npm/@esbuild/darwin-x64 && npm publish
+	cd npm/@esbuild/darwin-x64 && npm publish --access public
 
 publish-darwin-arm64: platform-darwin-arm64
-	cd npm/@esbuild/darwin-arm64 && npm publish
+	cd npm/@esbuild/darwin-arm64 && npm publish --access public
 
 publish-freebsd-x64: platform-freebsd-x64
-	cd npm/@esbuild/freebsd-x64 && npm publish
+	cd npm/@esbuild/freebsd-x64 && npm publish --access public
 
 publish-freebsd-arm64: platform-freebsd-arm64
-	cd npm/@esbuild/freebsd-arm64 && npm publish
+	cd npm/@esbuild/freebsd-arm64 && npm publish --access public
 
 publish-netbsd-arm64: platform-netbsd-arm64
-	cd npm/@esbuild/netbsd-arm64 && npm publish
+	cd npm/@esbuild/netbsd-arm64 && npm publish --access public
 
 publish-netbsd-x64: platform-netbsd-x64
-	cd npm/@esbuild/netbsd-x64 && npm publish
+	cd npm/@esbuild/netbsd-x64 && npm publish --access public
 
 publish-openbsd-arm64: platform-openbsd-arm64
-	cd npm/@esbuild/openbsd-arm64 && npm publish
+	cd npm/@esbuild/openbsd-arm64 && npm publish --access public
 
 publish-openbsd-x64: platform-openbsd-x64
-	cd npm/@esbuild/openbsd-x64 && npm publish
+	cd npm/@esbuild/openbsd-x64 && npm publish --access public
 
 publish-openharmony-arm64: platform-openharmony-arm64
-	cd npm/@esbuild/openharmony-arm64 && npm publish
+	cd npm/@esbuild/openharmony-arm64 && npm publish --access public
 
 publish-linux-x64: platform-linux-x64
-	cd npm/@esbuild/linux-x64 && npm publish
+	cd npm/@esbuild/linux-x64 && npm publish --access public
 
 publish-linux-ia32: platform-linux-ia32
-	cd npm/@esbuild/linux-ia32 && npm publish
+	cd npm/@esbuild/linux-ia32 && npm publish --access public
 
 publish-linux-arm: platform-linux-arm
-	cd npm/@esbuild/linux-arm && npm publish
+	cd npm/@esbuild/linux-arm && npm publish --access public
 
 publish-linux-arm64: platform-linux-arm64
-	cd npm/@esbuild/linux-arm64 && npm publish
+	cd npm/@esbuild/linux-arm64 && npm publish --access public
 
 publish-linux-loong64: platform-linux-loong64
-	cd npm/@esbuild/linux-loong64 && npm publish
+	cd npm/@esbuild/linux-loong64 && npm publish --access public
 
 publish-linux-mips64el: platform-linux-mips64el
-	cd npm/@esbuild/linux-mips64el && npm publish
+	cd npm/@esbuild/linux-mips64el && npm publish --access public
 
 publish-linux-ppc64: platform-linux-ppc64
-	cd npm/@esbuild/linux-ppc64 && npm publish
+	cd npm/@esbuild/linux-ppc64 && npm publish --access public
 
 publish-linux-riscv64: platform-linux-riscv64
-	cd npm/@esbuild/linux-riscv64 && npm publish
+	cd npm/@esbuild/linux-riscv64 && npm publish --access public
 
 publish-linux-s390x: platform-linux-s390x
-	cd npm/@esbuild/linux-s390x && npm publish
+	cd npm/@esbuild/linux-s390x && npm publish --access public
 
 publish-sunos-x64: platform-sunos-x64
-	cd npm/@esbuild/sunos-x64 && npm publish
+	cd npm/@esbuild/sunos-x64 && npm publish --access public
 
 publish-wasm: platform-wasm
-	cd npm/esbuild-wasm && npm publish
+	cd npm/esbuild-wasm && npm publish --access public
 
 publish-neutral: platform-neutral
-	cd npm/esbuild && npm publish
+	cd npm/esbuild && npm publish --access public
 
 validate-build:
 	@test -n "$(TARGET)" || (echo "The environment variable TARGET must be provided" && false)
