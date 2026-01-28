@@ -388,6 +388,8 @@ function flagsForBuildOptions(
     }
   }
 
+  console.log('final build flags', flags)
+  
   return {
     entries,
     flags,
