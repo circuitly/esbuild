@@ -15,7 +15,7 @@ import (
 // all code that references this index can be discovered easily.
 const SourceIndex = uint32(0)
 
-func Source(unsupportedJSFeatures compat.JSFeature) logger.Source {
+func Source(unsupportedJSFeatures compat.JSFeature, debugAlloc bool) logger.Source {
 	// Note: These helper functions used to be named similar things to the helper
 	// functions from the TypeScript compiler. However, people sometimes use these
 	// two projects in combination and TypeScript's implementation of these helpers
@@ -60,7 +60,45 @@ func Source(unsupportedJSFeatures compat.JSFeature) logger.Source {
 	//
 	// Note: The "__objRest" function has a for-of loop which requires ES6, but
 	// transforming destructuring to ES5 isn't even supported so it's ok.
-	text := `
+	text := ""
+
+	if debugAlloc {
+		text += `globalThis.$__onAlloc = globalThis.$__onAlloc ?? function() {}
+		{
+			const {from} = Array
+			Array.from = function() {
+				globalThis.$__onAlloc(1)
+				return from.apply(Array, ...arguments)
+			}
+			const bind = (key) => {
+				const method = Array.prototype[key]
+				Array.prototype[key] = function() {
+					globalThis.$__onAlloc(1)
+					return method.apply(this, arguments)
+				}
+			}
+			bind('slice')
+			bind('concat')
+			bind('filter')
+			bind('map')
+			bind('flatMap')
+		}
+		{
+			const bind = (key) => {
+				const method = Object[key]
+				Object[key] = function() {
+					globalThis.$__onAlloc(2)
+					return method.apply(this, arguments)
+				}
+			}
+			bind('entries')
+			bind('fromEntries')
+			bind('create')
+		}
+        `
+	}
+
+	text += `
 		var __create = Object.create
 		var __freeze = Object.freeze
 		var __defProp = Object.defineProperty

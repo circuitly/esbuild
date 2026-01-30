@@ -2250,7 +2250,7 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 
 		if p.options.DebugAlloc {
 			// comma expression
-			p.print("(globalThis?.$__onAlloc(0), ")
+			p.print("(globalThis.$__onAlloc(0), ")
 			wrap = true
 		}
 
@@ -2834,7 +2834,7 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 		doDebugAlloc := p.options.DebugAlloc && !insideLeft
 		if doDebugAlloc {
 			// build a comma expression
-			p.print("(globalThis?.$__onAlloc(1), ")
+			p.print("(globalThis.$__onAlloc(1), ")
 		}
 
 		p.print("[")
@@ -2896,7 +2896,7 @@ func (p *printer) printExpr(expr js_ast.Expr, level js_ast.L, flags printExprFla
 
 		if doDebugAlloc {
 			wrap = true
-			p.print("(globalThis?.$__onAlloc(")
+			p.print("(globalThis.$__onAlloc(")
 			if insideCallExpr {
 				p.print("3), ")
 			} else {

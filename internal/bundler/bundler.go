@@ -3329,7 +3329,7 @@ func (cache *runtimeCache) parseRuntime(options *config.Options) (source logger.
 	}
 
 	// Determine which source to use
-	source = runtime.Source(key.unsupportedJSFeatures)
+	source = runtime.Source(key.unsupportedJSFeatures, options.DebugAlloc)
 
 	// Cache hit?
 	(func() {
