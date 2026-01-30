@@ -68,7 +68,7 @@ func Source(unsupportedJSFeatures compat.JSFeature, debugAlloc bool) logger.Sour
 			const {from} = Array
 			Array.from = function() {
 				globalThis.$__onAlloc(1)
-				return from.apply(Array, ...arguments)
+				return from(...arguments)
 			}
 			const bind = (key) => {
 				const method = Array.prototype[key]
